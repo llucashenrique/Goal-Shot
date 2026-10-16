@@ -13,10 +13,11 @@ public class Rotacao : MonoBehaviour
     // Seta
     [SerializeField]private Image setaImg;
 
-    // Angulo 
+    // Angulo da seta em graus (o script Forca usa esse valor)
     public float zRotate;
     void Start()
     {
+        // Bola e seta comecam na posicao inicial (StartPos)
         PosicionaSeta();
         PosicionaBola();
     }
@@ -37,11 +38,13 @@ public class Rotacao : MonoBehaviour
         this.gameObject.transform.position = posStart.position;
     }
 
+    // Gira a seta no eixo Z para o angulo do zRotate
     void RotacaoSeta()
     {
         setaImg.rectTransform.eulerAngles = new Vector3(0,0,zRotate);
     }
 
+    // Setas do teclado aumentam ou diminuem o angulo
     void InputDeRotacao()
     {
         if(Input.GetKey(KeyCode.UpArrow))
