@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="10" height="5" tilewidth="128" tileheight="128" infinite="0" nextlayerid="4" nextobjectid="1">
+ <tileset firstgid="1" source="Tiles.tsx"/>
+ <tileset firstgid="4" source="Colisor.tsx"/>
+ <layer id="1" name="Principal" width="10" height="5">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,1,0,0,0,
+0,0,0,0,0,1,1,0,3,0,
+2,2,2,2,2,2,2,2,2,2
+</data>
+ </layer>
+ <layer id="2" name="Objs" width="10" height="5">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="3" name="Colisor" width="10" height="5">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,4,0,0,0,
+0,0,0,0,0,4,0,0,4,0,
+4,4,4,4,4,0,0,4,0,4
+</data>
+ </layer>
+</map>
