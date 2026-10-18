@@ -17,7 +17,11 @@ public class Rotacao : MonoBehaviour
     // Angulo da seta em graus (o script Forca usa esse valor)
     public float zRotate;
     // Permite ou bloqueia a rotacao da seta
-    public bool liberaRot = true;
+    public bool liberaRot = false;
+
+    // Avisa o script Forca que o chute pode ser feito
+    public bool liberaTiro = false;
+
     void Start()
     {
         // Bola e seta comecam na posicao inicial (StartPos)
@@ -61,7 +65,7 @@ public class Rotacao : MonoBehaviour
         //     zRotate -= 2.5f;
         // }
 
-        if(liberaRot = true)
+        if(liberaRot == true)
         {
         // Le quanto o mouse se moveu neste frame
         float moveX = Input.GetAxis ("Mouse X");
@@ -99,4 +103,18 @@ public class Rotacao : MonoBehaviour
             zRotate = 0;
         }
     }
+
+    // Clicou e segurou na bola: libera a mira
+    void OnMouseDown()
+    {
+       liberaRot = true;
+    }
+
+    // Soltou o mouse: trava a mira e libera o chute
+    void OnMouseUp()
+    {
+       liberaRot = false;
+       liberaTiro = true;
+    }
+
 }
