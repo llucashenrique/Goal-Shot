@@ -7,9 +7,12 @@ public class Forca : MonoBehaviour
 {
     private Rigidbody2D bola;
     // Intensidade do chute
-    private float force = 1000f;
+    public float force = 0;
     // Usado para ler o angulo (zRotate) da seta
     private Rotacao rot;
+
+    // Seta verde que funciona como barra de forca (Image Type Filled)
+    public Image seta2Img;
 
     void Start()
     {
@@ -20,6 +23,7 @@ public class Forca : MonoBehaviour
     void Update()
     {
         AplicaForca();
+        ControlaForca();
     }
 
     void AplicaForca()
@@ -34,6 +38,29 @@ public class Forca : MonoBehaviour
             bola.AddForce(new Vector2(x,y));
             // Desliga para o chute acontecer uma vez so
             rot.liberaTiro = false;
+        }
+    }
+
+    // Carrega a forca enquanto a bola esta segurada
+    void ControlaForca()
+    {
+        if(rot.liberaRot == true)
+        {
+          float moveX = Input.GetAxis ("Mouse X");
+
+          // Arrastar para a esquerda enche a barra, para a direita esvazia
+          // A forca vai de 0 a 1000 conforme o preenchimento da seta
+          if(moveX < 0)
+            {
+              seta2Img.fillAmount += 1 * Time.deltaTime;
+              force = seta2Img.fillAmount * 1000;  
+            }
+
+            if(moveX > 0)
+            {
+              seta2Img.fillAmount -= 1 * Time.deltaTime;
+              force = seta2Img.fillAmount * 1000; 
+            }
         }
     }
 }

@@ -68,7 +68,6 @@ public class Rotacao : MonoBehaviour
         if(liberaRot == true)
         {
         // Le quanto o mouse se moveu neste frame
-        float moveX = Input.GetAxis ("Mouse X");
         float moveY = Input.GetAxis ("Mouse Y");
 
         // Mouse para cima sobe a seta, mouse para baixo desce
