@@ -28,10 +28,12 @@ public class Forca : MonoBehaviour
         float x = force * Mathf.Cos(rot.zRotate * Mathf.Deg2Rad);
         float y = force * Mathf.Sin(rot.zRotate * Mathf.Deg2Rad);
 
-        // Chuta ao soltar a barra de espaco
-        if(Input.GetKeyUp(KeyCode.Space))
+        // Chuta quando o mouse e solto na bola (liberaTiro do script Rotacao)
+        if(rot.liberaTiro == true)
         {
             bola.AddForce(new Vector2(x,y));
+            // Desliga para o chute acontecer uma vez so
+            rot.liberaTiro = false;
         }
     }
 }
