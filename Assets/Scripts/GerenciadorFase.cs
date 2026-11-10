@@ -36,6 +36,9 @@ public class GerenciadorFase : MonoBehaviour
     int tentativas;
     bool faseAcabou;
 
+    // Moedas pegas nesta fase: so viram moedas do jogador se ele fizer o gol
+    int moedasDaFase;
+
     void Awake()
     {
         // A fase escolhida na tela de selecao define as tentativas e o cenario
@@ -58,7 +61,8 @@ public class GerenciadorFase : MonoBehaviour
     void AtualizarHud()
     {
         textoTentativas.text = tentativas.ToString();
-        textoMoedas.text = Moedas.Quantidade.ToString();
+        // Mostra as moedas salvas mais as pegas nesta fase (que ainda podem ser perdidas)
+        textoMoedas.text = (Moedas.Quantidade + moedasDaFase).ToString();
     }
 
     // Cada chute gasta uma tentativa e espera a bola parar
@@ -92,8 +96,19 @@ public class GerenciadorFase : MonoBehaviour
         }
         else
         {
-            StartCoroutine(TerminarFase("QUASE!\n<size=50%>TENTE DE NOVO</size>"));
+            // Nao completou a fase: perde as moedas que pegou nela
+            string aviso = moedasDaFase > 0 ? "VOCÊ PERDEU " + moedasDaFase + " MOEDAS" : "TENTE DE NOVO";
+            moedasDaFase = 0;
+            AtualizarHud();
+            StartCoroutine(TerminarFase("QUASE!\n<size=45%>" + aviso + "</size>"));
         }
+    }
+
+    // Chamado pelas moedas da fase quando a bola pega uma
+    public void ColetarMoeda(int valor)
+    {
+        moedasDaFase += valor;
+        AtualizarHud();
     }
 
     // Chamado pelo Gol quando a bola entra na rede
@@ -101,9 +116,10 @@ public class GerenciadorFase : MonoBehaviour
     {
         if (faseAcabou) return;
 
-        // Premio em moedas e libera a proxima fase
-        int premio = PremioPorFase * fase;
+        // Salva o premio do gol mais as moedas pegas na fase, e libera a proxima fase
+        int premio = PremioPorFase * fase + moedasDaFase;
         Moedas.Quantidade += premio;
+        moedasDaFase = 0;
         int proxima = Mathf.Min(fase + 1, UltimaFase);
         if (PlayerPrefs.GetInt("faseLiberada", 1) < proxima)
             PlayerPrefs.SetInt("faseLiberada", proxima);

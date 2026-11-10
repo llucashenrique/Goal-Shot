@@ -19,7 +19,8 @@ public static class MontadorDeCenas
     const int VersaoLoja = 3;
     const int VersaoBola = 2;
     const string MaterialBola = "Assets/Fisica/Bola.physicsMaterial2D";
-    const int VersaoFase = 4;
+    const int VersaoFase = 5;
+    const float TamanhoMoeda = 0.6f;
     const string ImagemCaixa = "Assets/Items/caixa.png";
     const string ImagemBarril = "Assets/Items/barril.png";
     const string ImagemGrama = "Assets/Items/grama.png";
@@ -269,19 +270,46 @@ public static class MontadorDeCenas
             }
         }
 
-        var fase1 = Fase(1);
+        // Moeda para pegar: x e y sao a posicao no mundo
+        var spriteMoeda = CarregarComTamanho(ImagemMoeda, TamanhoMoeda, usarLargura: true);
+        int contadorMoedas = 0;
+        void Moeda(GameObject fase, float x, float y)
+        {
+            var moeda = new GameObject("Moeda " + (++contadorMoedas), typeof(SpriteRenderer), typeof(CircleCollider2D), typeof(MoedaColetavel));
+            moeda.transform.SetParent(fase.transform, false);
+            moeda.transform.position = new Vector3(x, y, 0);
+            var render = moeda.GetComponent<SpriteRenderer>();
+            render.sprite = spriteMoeda;
+            render.sortingOrder = 500;
+            var colisor = moeda.GetComponent<CircleCollider2D>();
+            colisor.isTrigger = true;
+            colisor.radius = TamanhoMoeda * 0.45f;
+        }
 
+        // Fase 1: uma moeda no meio do caminho da bola
+        var fase1 = Fase(1);
+        Moeda(fase1, 0f, -1.2f);
+
+        // Fase 2: uma em cima da torre de caixas e outra no alto, mais para a direita
         var fase2 = Fase(2);
         Pilha(fase2, "Caixas", caixa, 0.8f, 2);
+        Moeda(fase2, 0.8f, -0.3f);
+        Moeda(fase2, 3.6f, 0.4f);
 
+        // Fase 3: uma acima do muro de caixas e outra acima dos barris
         var fase3 = Fase(3);
         Pilha(fase3, "Caixas", caixa, -1.2f, 3);
         Pilha(fase3, "Barris", barril, 3.2f, 2);
+        Moeda(fase3, -1.2f, 1.0f);
+        Moeda(fase3, 3.2f, -0.3f);
 
+        // Fase 4: uma em cima do barril e outra acima do muro de grama
         var fase4 = Fase(4);
         Pilha(fase4, "Caixas", caixa, -2.2f, 2);
         Pilha(fase4, "Barril", barril, 0.9f, 1);
         Pilha(fase4, "Muro de Grama", grama, 4.0f, 2);
+        Moeda(fase4, 0.9f, -1.6f);
+        Moeda(fase4, 4.0f, -0.3f);
 
         return new[] { fase1, fase2, fase3, fase4 };
     }
