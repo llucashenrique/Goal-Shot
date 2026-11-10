@@ -387,6 +387,17 @@ public static class MontadorDeCenas
         Debug.Log("Goal Shot: agora voce tem " + Moedas.Quantidade + " moedas");
     }
 
+    // Trava de novo as bolas compradas (mantendo moedas e fases), para mostrar a compra na apresentacao
+    [MenuItem("Goal Shot/Teste: Bloquear Bolas da Loja")]
+    static void BloquearBolasTeste()
+    {
+        for (int i = 1; i < BolasLoja.Length; i++)
+            PlayerPrefs.DeleteKey("bolaComprada" + i);
+        PlayerPrefs.SetInt("bolaSelecionada", 0);
+        PlayerPrefs.Save();
+        Debug.Log("Goal Shot: bola azul e dourada bloqueadas de novo; bola padrao em uso. Voce tem " + Moedas.Quantidade + " moedas");
+    }
+
     [MenuItem("Goal Shot/Teste: Liberar Todas as Fases")]
     static void LiberarFasesTeste()
     {
