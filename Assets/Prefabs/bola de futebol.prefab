@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3827022847436717797}
   - component: {fileID: 8278606755736693114}
   - component: {fileID: 2996692490248688624}
+  - component: {fileID: 4776546930735882518}
   m_Layer: 0
   m_Name: bola de futebol
   m_TagString: Untagged
@@ -83,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 999
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: ac5530bf4f7b1aa48998c277228edc24, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cf1e753b5f316fa4cb9ff5fa8387bf4a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -143,17 +144,33 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_LinearDamping: 0.35
+  m_AngularDamping: 1.5
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d8d526b73379fba4ca5f795c2edd7bda, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &4776546930735882518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5512007128125230298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a3ff2654340a140827fc7f246e4842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AparenciaBola
+  bolas:
+  - {fileID: 21300000, guid: cf1e753b5f316fa4cb9ff5fa8387bf4a, type: 3}
+  - {fileID: 21300000, guid: bcff7e8ef8832cb4e89aea6914030030, type: 3}
+  - {fileID: 21300000, guid: a9f74dea585f58144bd8645a893ec056, type: 3}
