@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Forca : MonoBehaviour
 {
+    // Avisa o GerenciadorFase que um chute aconteceu (para contar a tentativa)
+    public static event System.Action AoChutar;
+
     private Rigidbody2D bola;
     // Intensidade do chute
     public float force = 0;
@@ -35,10 +38,22 @@ public class Forca : MonoBehaviour
         // Chuta quando o mouse e solto na bola (liberaTiro do script Rotacao)
         if(rot.liberaTiro == true)
         {
-            bola.AddForce(new Vector2(x,y));
+            // Sem forca carregada nao conta como chute
+            if(force > 0)
+            {
+                bola.AddForce(new Vector2(x,y));
+                AoChutar?.Invoke();
+            }
             // Desliga para o chute acontecer uma vez so
             rot.liberaTiro = false;
         }
+    }
+
+    // Zera a forca e esvazia a seta (usado quando a bola volta para o inicio)
+    public void Resetar()
+    {
+        force = 0;
+        seta2Img.fillAmount = 0;
     }
 
     // Carrega a forca enquanto a bola esta segurada

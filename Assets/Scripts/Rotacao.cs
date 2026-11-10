@@ -106,12 +106,15 @@ public class Rotacao : MonoBehaviour
     // Clicou e segurou na bola: libera a mira
     void OnMouseDown()
     {
+       // Nao deixa mirar enquanto a bola ainda esta rolando do chute anterior
+       if (!GerenciadorFase.PodeChutar) return;
        liberaRot = true;
     }
 
     // Soltou o mouse: trava a mira e libera o chute
     void OnMouseUp()
     {
+       if (!liberaRot) return;
        liberaRot = false;
        liberaTiro = true;
     }
